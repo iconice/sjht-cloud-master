@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sjht.cloud.entrance.dao.EntranceHouseMapper">
+
+    <select id="getEntranceHouseInfo" resultType="com.sjht.cloud.entrance.api.vo.EntranceHouseVo">
+        SELECT
+            t.id,
+            t.community_id,
+            t.street_id,
+            t.address,
+            t.in_time,
+            t.type,
+            t.is_multi,
+            t.feedback,
+            t.status
+        FROM
+            sjht_entrance_house_info t WHERE t.appli_id = #{appliId} limit 1
+    </select>
+
+    <update id="modifyEntranceHouseStatus">
+        UPDATE sjht_entrance_house_info
+        SET STATUS = #{status}, update_time = CURRENT_TIMESTAMP WHERE appli_id = #{id}
+    </update>
+    <update id="updateAudit">
+        UPDATE sjht_entrance_house_info
+        SET STATUS = #{ew.result},feedback =#{ew.resultMsg}, update_time = CURRENT_TIMESTAMP WHERE appli_id = #{ew.appid} and id = #{ew.subAppid}
+    </update>
+</mapper>

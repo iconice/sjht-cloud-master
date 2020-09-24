@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sjht.cloud.entrance.dao.ThreeCounterpartRegionMapper">
+
+    <select id="getRegionAddList" resultType="com.sjht.cloud.entrance.api.vo.RegionAddListVo">
+        SELECT
+            r.id,
+            r.parent_id AS parentId,
+            r.`name`,
+            r.type,
+            r.create_time AS createTime,
+            r.update_time AS updateTime,
+            r.remark
+        FROM
+            sys_three_counterpart_region r
+    </select>
+</mapper>

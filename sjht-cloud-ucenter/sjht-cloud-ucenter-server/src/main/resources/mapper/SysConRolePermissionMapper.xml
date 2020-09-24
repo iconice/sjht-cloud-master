@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sjht.cloud.ucenter.dao.SysConRolePermissionMapper">
+
+	<!--批量插入-->
+	<insert id="batchInsert">
+		INSERT INTO `sys_con_role_permission` ( `id`, `role_id`, `permission_id`, `deletec`, `create_time`, `update_time`, `remark` )
+		values
+		<foreach collection="params" index="index" item="param" separator=",">
+			(
+			#{param.id},#{param.roleId},#{param.permissionId},0,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,null
+			)
+		</foreach>
+	</insert>
+</mapper>

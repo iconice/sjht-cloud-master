@@ -1,0 +1,73 @@
+spring:
+  datasource:
+    username: root
+    password: zc369369
+    url: jdbc:mysql://localhost:3306/school?useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 6000
+    filters: stat,wall,log4j
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1ms
+        max-idle: 8
+        min-idle: 0
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  # type-aliases-package: com.nacos.entity.*
+  type-aliases-super-type: java.lang.Object
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+    cache-enabled: true
+    capital-mode: true
+    lazy-loading-enabled: true
+    multiple-result-sets-enabled: true
+    use-generated-keys: true
+    default-statement-timeout: 60
+    default-fetch-size: 100
+auth:
+  tokenValiditySeconds: 1200
+  clientId: XcWebApp
+  clientSecret: XcWebApp
+  cookieDomain: 10.150.62.101
+  cookieMaxAge: -1
+encrypt:
+  key-store:
+    location: classpath:/xc.keystore
+    secret: xuechengkeystore
+    alias: xckey
+    password: xuecheng
+security:
+  oauth2:
+    client:
+      registered-redirect-uri: http://localhost:8003/
+
+#cluster.name: sjht
+#node.name: sjht_node_01
+#network.host: 192.168.175.131
+#http.port: 9200
+#transport.tcp.port: 9300
+#node.master: true
+#node.data: true
+#discovery.zen.ping.unicast.hosts: ["192.168.175.131:9300", "192.168.175.132:9300"]
+#discovery.zen.minimum_master_nodes: 1
+#node.ingest: true
+#bootstrap.memory_lock: false
+#bootstrap.system_call_filter: false
+#node.max_local_storage_nodes: 2
+#path.data: /usr/local/es01/data
+#path.logs: /usr/local/es01/logs
+#http.cors.enabled: true
+#http.cors.allow-origin: "*"
+
+

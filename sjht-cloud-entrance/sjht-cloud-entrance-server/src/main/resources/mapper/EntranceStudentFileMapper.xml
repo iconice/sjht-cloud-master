@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sjht.cloud.entrance.dao.EntranceStudentFileMapper">
+
+    <select id="getEntranceStudentFileList" resultType="com.sjht.cloud.entrance.api.vo.EntranceStudentFileVo">
+        SELECT
+        esf.id,
+        esf.file_id,
+        esf.type
+        FROM
+            sjht_entrance_student_file esf
+        WHERE esf.student_id = #{studentId}
+        AND   esf.deletec=0
+        order by type ASC
+    </select>
+
+    <update id="delEntranceStudentFile">
+        update
+            sjht_entrance_student_file
+        SET deletec = 1, update_time = CURRENT_TIMESTAMP WHERE student_id = #{studentId}
+        order by type ASC
+    </update>
+
+</mapper>

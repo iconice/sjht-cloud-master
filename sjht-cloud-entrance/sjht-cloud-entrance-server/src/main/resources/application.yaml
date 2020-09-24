@@ -1,0 +1,37 @@
+spring:
+  datasource:
+    username: root
+    password: zc369369
+    url: jdbc:mysql://localhost:3306/school?useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 6000
+    filters: stat,wall,log4j
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    timezone: GMT+8
+    serialization:
+      write-dates-as-timestamps: false
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  # type-aliases-package: com.nacos.entity.*
+  type-aliases-super-type: java.lang.Object
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+    cache-enabled: true
+    capital-mode: true
+    lazy-loading-enabled: true
+    multiple-result-sets-enabled: true
+    use-generated-keys: true
+    default-statement-timeout: 60
+    default-fetch-size: 100
+sjht:
+  fastdfs:
+    connect_timeout_in_seconds: 15
+    network_timeout_in_seconds: 30
+    charset: UTF-8
+    tracker_servers: 172.78.104.171:22122,172.78.104.172:22122

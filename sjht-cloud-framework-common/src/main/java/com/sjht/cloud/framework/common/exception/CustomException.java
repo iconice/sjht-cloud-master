@@ -1,0 +1,27 @@
+package com.sjht.cloud.framework.common.exception;
+
+import com.sjht.cloud.framework.common.entity.response.ResultCode;
+
+/**
+ * ***************************************************
+ * @ClassName CustomException
+ * @Description 自定义异常类
+ * @Author maojianyun
+ * @Date 2019/12/12 14:41
+ * @Version V1.0
+ * ****************************************************
+ **/
+public class CustomException extends RuntimeException {
+
+    /**
+     * 错误代码
+     */
+    ResultCode resultCode;
+
+    public CustomException(ResultCode resultCode){
+        this.resultCode = resultCode;
+    }
+    public ResultCode getResultCode(){
+        return resultCode;
+    }
+}

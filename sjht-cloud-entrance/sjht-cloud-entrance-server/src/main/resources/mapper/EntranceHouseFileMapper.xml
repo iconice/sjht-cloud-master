@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sjht.cloud.entrance.dao.EntranceHouseFileMapper">
+
+    <!--批量插入-->
+    <insert id="batchInsert">
+        INSERT INTO `sjht_entrance_house_info_file` ( `id`, `house_id`, `file_id`, `type`, `sub_type`, `sort_num`, `deletec`, `create_time`, `update_time`, `remark` )
+        values
+        <foreach collection="params" index="index" item="param" separator=",">
+            (
+            #{params.id}, #{params.houseId}, #{params.fileId}, #{params.type}, #{params.subType}, #{params.sortNum},0,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,null
+            )
+        </foreach>
+    </insert>
+
+    <select id="getHouseFileList" resultType="com.sjht.cloud.entrance.api.vo.EntranceHouseFileVo">
+        SELECT
+            t.id,
+            t.file_id AS fileId,
+            t.type,
+            t.sub_type AS subType,
+            t.sort_num
+        FROM
+            sjht_entrance_house_info_file t
+        WHERE
+            t.house_id = #{houseId}
+            ORDER BY t.sort_num ASC
+    </select>
+</mapper>

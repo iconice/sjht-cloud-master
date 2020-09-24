@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sjht.cloud.entrance.dao.EntranceStudentMapper">
+
+    <select id="getEntranceStudentInfo" resultType="com.sjht.cloud.entrance.api.vo.EntranceStudentVo">
+        SELECT
+        s.id,
+        s.appli_id AS appliId,
+        s.out_school_name AS outSchoolName,
+        s.student_num AS studentNum,
+        s.is_health AS isHealth,
+        s.is_health_form AS isHealthForm,
+        s.status,
+        s.remark,
+        s.feedback
+        FROM
+            sjht_entrance_student s
+        WHERE s.id = #{id} limit 1
+    </select>
+
+    <update id="modifyStatus">
+        UPDATE sjht_entrance_student
+        SET STATUS = #{status}, update_time = CURRENT_TIMESTAMP WHERE appli_id = #{id}
+    </update>
+    <update id="updateAudit">
+        UPDATE sjht_entrance_student
+        SET STATUS = #{ew.result}, feedback =#{ew.resultMsg}, update_time = CURRENT_TIMESTAMP WHERE appli_id = #{ew.appid} and id = #{ew.subAppid}
+    </update>
+</mapper>

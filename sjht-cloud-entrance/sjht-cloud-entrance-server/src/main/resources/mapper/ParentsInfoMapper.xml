@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sjht.cloud.entrance.dao.ParentsInfoMapper">
+    <select id="getParentInfo" resultType="com.sjht.cloud.entrance.api.vo.ParentInformationVo">
+         SELECT
+        p.id,
+        p.user_id AS userId,
+        p.relations,
+        p.`name`,
+        p.work_units AS workUnits,
+        p.dep,
+        p.tell,
+        p.work_units_tell AS workUnitstell
+    FROM
+        sjht_entrance_parents_info p
+    WHERE
+        p.user_id = #{userId}
+
+    ORDER BY
+        p.create_time ASC
+    </select>
+
+    <delete id="delParentInfoByUserId" >
+DELETE
+FROM
+	sjht_entrance_parents_info
+WHERE
+	user_id = #{userId}
+    </delete>
+</mapper>

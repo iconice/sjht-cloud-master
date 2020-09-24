@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sjht.cloud.entrance.dao.EntrancePreventionFileMapper">
+
+    <select id="getEntrancePreventionFile" resultType="com.sjht.cloud.entrance.api.vo.GetEntrancePreventionFileVo">
+        SELECT
+            T.id,
+            T.type,
+            T.file_id AS fileId,
+            T.sort_num AS sortNum
+        FROM
+            sjht_entrance_prevention_file T
+        WHERE T.appli_id = #{appliId}
+        ORDER BY T.type,T.sort_num
+    </select>
+
+    <update id="modifyEntrancePreventionStatus">
+        UPDATE sjht_entrance_prevention_file
+        SET STATUS = #{status}, update_time = CURRENT_TIMESTAMP WHERE id = #{id}
+    </update>
+</mapper>

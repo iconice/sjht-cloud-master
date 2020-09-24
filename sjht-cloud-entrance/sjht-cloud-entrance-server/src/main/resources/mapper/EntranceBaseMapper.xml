@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sjht.cloud.entrance.dao.EntranceBaseMapper">
+
+    <select id="getEntranceBaseInfo" resultType="com.sjht.cloud.entrance.api.vo.EntranceBaseVo">
+        SELECT
+            `id`,
+            `appli_id` AS appliId,
+            `child_name` AS childName,
+            `child_sex` AS childSex,
+            `id_card` AS idCard,
+            `child_head_file_id` AS childHeadFileId,
+            `master_name` AS masterName,
+            `relation`,
+            `tell`,
+            `address`,
+            `master_file_id` AS masterFileId,
+            `master_info_file_id` AS masterInfoFileId,
+            `child_info_file_id` AS childInfoFileId,
+            `modify_file_id` AS modifyFileId,
+            `status`,
+            `deletec`,
+            `create_time` AS createTime,
+            `update_time` AS updateTime,
+            `remark`,
+            feedback
+        FROM sjht_entrance_base_info t where t.appli_id = #{appliId} limit 1
+    </select>
+
+    <!--<update id="updateEntranceBaseInfo">-->
+    <!--UPDATE `sjht_entrance_base_info`-->
+    <!--SET-->
+    <!--`child_name` =  #{ew.childName},-->
+    <!--`child_sex` = #{ew.childSex},-->
+    <!--`id_card` = #{ew.idCard},-->
+    <!--`child_head_file_id` = #{ew.childHeadFileId},-->
+    <!--`master_name` = #{ew.masterName},-->
+    <!--`relation` = #{ew.relation},-->
+    <!--`tell` = #{ew.tell},-->
+    <!--`address` = #{ew.address},-->
+    <!--`master_file_id` = #{ew.masterFileId},-->
+    <!--`master_info_file_id` = #{ew.masterInfoFileId},-->
+    <!--`child_info_file_id` = #{ew.childInfoFileId},-->
+    <!--`modify_file_id` = #{ew.modifyFileId},-->
+    <!--`update_time` = CURRENT_TIMESTAMP-->
+    <!--WHERE-->
+    <!--`id` = #{ew.id};-->
+    <!--</update>-->
+
+    <update id="updateEntranceBaseInfo">
+        UPDATE `sjht_entrance_base_info`
+        <set>
+            <if test="ew.childName != null">
+                `child_name` = #{ew.childName},
+            </if>
+            <if test="ew.childSex != null">
+                `child_sex` = #{ew.childSex},
+            </if>
+            <if test="ew.idCard != null">
+                `id_card` = #{ew.idCard},
+            </if>
+            <if test="ew.childHeadFileId != null">
+                `child_head_file_id` = #{ew.childHeadFileId},
+            </if>
+            <if test="ew.masterName != null">
+                `master_name` = #{ew.masterName},
+            </if>
+            <if test="ew.relation != null">
+                `relation` = #{ew.relation},
+            </if>
+            <if test="ew.tell != null">
+                `tell` = #{ew.tell},
+            </if>
+            <if test="ew.status != null">
+                `status` = #{ew.status},
+            </if>
+            <if test="ew.address != null">
+                `address` = #{ew.address},
+            </if>
+            `master_file_id` = #{ew.masterFileId},
+            `master_info_file_id` = #{ew.masterInfoFileId},
+            `child_info_file_id` = #{ew.childInfoFileId},
+            `modify_file_id` = #{ew.modifyFileId},
+            `update_time` = CURRENT_TIMESTAMP
+        </set>
+        WHERE
+        `id` = #{ew.id};
+    </update>
+
+    <update id="modifyEntranceBaseStatus">
+        UPDATE sjht_entrance_base_info
+        SET STATUS = #{status}, update_time = CURRENT_TIMESTAMP WHERE appli_id = #{id}
+    </update>
+    <update id="auditAppDetail"></update>
+    <update id="updateAudit">
+        UPDATE sjht_entrance_base_info
+        SET STATUS = #{ew.result},feedback =#{ew.resultMsg}, update_time = CURRENT_TIMESTAMP WHERE appli_id = #{ew.appid} and id = #{ew.subAppid}
+    </update>
+</mapper>

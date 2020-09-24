@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sjht.cloud.ucenter.dao.SysPermissionMapper">
+
+	<!-- 得到所有目录权限、不包含按钮 -->
+    <select id="getCatalogPermissionList" resultType="com.sjht.cloud.ucenter.api.vo.CatalogListVo">
+        SELECT
+			id,
+			`name`,
+			 parent_id AS parentId,
+			`type`
+		FROM
+			sys_permission
+		WHERE
+			STATUS = 1
+			AND deletec = 0
+			AND `type` IN ( 0, 1 )
+		ORDER BY
+			order_num
+    </select>
+
+	<!-- 得到所有权限列表:包涵目录、菜单、按钮 -->
+	<select id="getPermissionList" resultType="com.sjht.cloud.ucenter.api.vo.PermissionVo">
+        SELECT
+            p.id,
+            p.`name`,
+            p.parent_id AS parentId,
+            p.icon,
+            p.type,
+            p.url,
+            p.perms,
+            p.order_num AS orderNum,
+            p.description,
+            p.status
+        FROM
+            sys_permission p
+        WHERE
+			deletec = 0
+        ORDER BY p.order_num
+    </select>
+
+	<select id="getPermissionInfo" resultType="com.sjht.cloud.ucenter.api.vo.PermissionVo">
+        SELECT
+            p.id,
+            p.`name`,
+            p.parent_id AS parentId,
+            p.icon,
+            p.type,
+            p.url,
+            p.perms,
+            p.order_num AS orderNum,
+            p.description,
+            p.status
+        FROM
+            sys_permission p
+        WHERE
+			p.id = #{permissionId}
+        LIMIT 1
+    </select>
+
+	<!-- 查询用户的权限 -->
+	<select id="getPermissionListById" resultType="com.sjht.cloud.ucenter.api.vo.PermissionVo">
+        SELECT distinct
+			p.id,
+			p.name,
+			p.description,
+			p.url,
+			p.parent_id AS parentId,
+			p.icon,
+			p.order_num AS orderNum
+		FROM
+			sys_permission p
+			LEFT JOIN sys_con_role_permission rp ON p.id = rp.permission_id
+			LEFT JOIN sys_con_user_role ur ON rp.role_id = ur.role_id
+		WHERE
+			ur.user_id = #{userId}
+			AND p.type IN ( 0, 1 )
+			AND p.STATUS = 1
+			AND p.deletec = 0
+		ORDER BY
+			p.order_num
+    </select>
+
+
+
+</mapper>

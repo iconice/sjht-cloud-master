@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sjht.cloud.ucenter.dao.SysRoleMapper">
+
+    <!-- 角色分页列表-->
+    <select id="pageRoleList" resultType="com.sjht.cloud.ucenter.api.vo.RoleVo">
+        SELECT
+            r.id,
+            r.`name`,
+            r.description,
+            r.status,
+            r.create_time AS createTime,
+            r.update_time AS updateTime
+        FROM
+            sys_role r
+        WHERE r.deletec = 0
+        ORDER BY r.update_time ASC, r.create_time ASC
+    </select>
+
+    <!-- 角色分页列表-->
+    <select id="getRoleInfo" resultType="com.sjht.cloud.ucenter.api.vo.RoleVo">
+        SELECT
+            r.id,
+            r.`name`,
+            r.description,
+            r.status,
+            r.create_time AS createTime,
+            r.update_time AS updateTime
+        FROM
+            sys_role r
+        WHERE r.deletec = 0 AND r.id = #{roleId}
+        limit 1
+    </select>
+
+    <!-- 得到角色的权限-->
+    <select id="getRolePermission" resultType="String">
+        SELECT
+            a.permission_id AS permissionId
+        FROM
+            sys_con_role_permission a
+            LEFT JOIN sys_permission b ON a.permission_id = b.id
+        WHERE
+            a.role_id = #{roleId} and b.status=1
+    </select>
+
+    <!-- 得到所有的叫色列表-->
+    <select id="getRoleList" resultType="com.sjht.cloud.ucenter.api.vo.AssignRoleVo">
+        SELECT
+            r.id,
+            r.`name`,
+            r.description
+        FROM
+            sys_role r
+        WHERE r.deletec = 0 and r.status = 1
+        ORDER BY r.update_time ASC, r.create_time ASC
+    </select>
+
+    <!-- 得到用户已经分配的角色id-->
+    <select id="getRoleIds" resultType="java.lang.String">
+        SELECT
+            r.id
+        FROM
+            sys_role r
+        LEFT JOIN sys_con_user_role ur ON r.id = ur.role_id
+        WHERE ur.user_id = #{userId}
+    </select>
+
+</mapper>
